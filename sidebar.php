@@ -14,11 +14,11 @@
 		</div>
 		<nav class="sidenav">
 			<ul class="sidebar-menu">
-				<li><a href="#">Neerslag</a></li>
-				<li><a href="#">Zon</a></li>
-				<li><a href="#">Luchtvochtigheid</a></li>
+				<li class="hvr-sweep-to-right"><a href="#">Neerslag</a></li>
+				<li class="hvr-sweep-to-right"><a href="#">Zon</a></li>
+				<li class="hvr-sweep-to-right"><a href="#">Luchtvochtigheid</a></li>
 			</ul>
-			<button class="logout-button"><a href="?logout=1">Logout</a></button>
+			<button class="logout-button fade-effect-btn"><a href="?logout=1">Logout</a></button>
 		</nav>
 	</div>
 </div>
