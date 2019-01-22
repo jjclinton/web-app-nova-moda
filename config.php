@@ -2,6 +2,7 @@
 /**
  * Configuration file
  **/
+define('INCLUDED', true);
 //start session to save loggedin users
 session_start();
 
