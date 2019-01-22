@@ -1,7 +1,9 @@
 <?php
-/*
- * Header file met sidebar navigatie
- */
+/**
+ * Header template with opening body tag and css inclusion
+ *
+ * This file will be loaded everywhere
+ **/
 ?>
 
 

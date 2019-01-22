@@ -1,8 +1,7 @@
 <?php
 /**
- * Created by PhpStorm.
- * Date: 15-1-2019
- * Time: 20:47
+ * Login template
+ * Shows error if username and/or password is wrong
  */
 ?>
 <div class="wrap">

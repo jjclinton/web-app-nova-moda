@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Anne Marijke
- * Date: 15-1-2019
- * Time: 21:09
+ * Sidebar menu with all the menu items
  */
 ?>
 <!-- zijnavigatie -->

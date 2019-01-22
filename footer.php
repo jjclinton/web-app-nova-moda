@@ -1,8 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * Date: 15-1-2019
- * Time: 20:46
+ * Footer file, this template will be loaded onto every page
  */
 ?>
 &copy Weer applicatie
