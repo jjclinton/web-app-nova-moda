@@ -3,7 +3,9 @@
  * Login template
  * Shows error if username and/or password is wrong
  */
+defined('INCLUDED') or die();
 ?>
+<link rel="stylesheet" href="<?php echo get_url('/css/login.css'); ?>"/>
 <div class="wrap">
   <form class="login" action="index.php" method="post">
     <div class="toggle-bar">

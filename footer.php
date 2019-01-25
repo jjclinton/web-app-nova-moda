@@ -2,7 +2,7 @@
 /**
  * Footer file, this template will be loaded onto every page
  */
+defined('INCLUDED') or die();
 ?>
-&copy Weer applicatie
 </body>
 </html>

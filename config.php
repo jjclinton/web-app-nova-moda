@@ -2,6 +2,7 @@
 /**
  * Configuration file
  **/
+require('functions.php');
 define('INCLUDED', true);
 //start session to save loggedin users
 session_start();
