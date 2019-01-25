@@ -3,7 +3,7 @@
     <tr1>
         <th>Nr.</th>
         <th>Place</th>
-        <th>Feeling Temperature</th>
+        <th>Windchill</th>
     </tr1>
     <?php for ($i = 0; $i < $rows; $i++) { ?>
     <tr>

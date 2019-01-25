@@ -14,7 +14,7 @@ if ($loggedin) {
 	?>
     <script src="<?php echo get_url('/js/countries.js'); ?>"></script>
 	<div class="head-text">
-		<h1>Countries with 5 coldest places</h1>
+		<h1>Countries with 10 coldest places</h1>
 	</div>
 	<div class="row">
 		<div class="col-3-4 left">
