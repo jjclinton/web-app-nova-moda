@@ -4,7 +4,8 @@ $(document).ready(function () {
         const esp = $('.chck-esp');
         const mex = $('.chck-mex');
         const us = $('.chck-us');
-        const poles = $('.chck-poles');
+        const np = $('.chck-np');
+        const sp = $('.chck-sp');
 
         if ($(this).hasClass('chck-france')) {
             if (fr.hasClass('checked')) {
@@ -54,15 +55,27 @@ $(document).ready(function () {
             }
         }
 
-        if ($(this).hasClass('chck-poles')) {
-            if (poles.hasClass('checked')) {
-                poles.removeClass('checked');
-                poles.addClass('unchecked');
-                $('.col-poles').hide();
-            } else if (poles.hasClass('unchecked')) {
-                poles.removeClass('unchecked');
-                poles.addClass('checked');
-                $('.col-poles').show();
+        if ($(this).hasClass('chck-np')) {
+            if (np.hasClass('checked')) {
+                np.removeClass('checked');
+                np.addClass('unchecked');
+                $('.col-np').hide();
+            } else if (np.hasClass('unchecked')) {
+                np.removeClass('unchecked');
+                np.addClass('checked');
+                $('.col-np').show();
+            }
+        }
+
+        if ($(this).hasClass('chck-sp')) {
+            if (sp.hasClass('checked')) {
+                sp.removeClass('checked');
+                sp.addClass('unchecked');
+                $('.col-np').hide();
+            } else if (sp.hasClass('unchecked')) {
+                sp.removeClass('unchecked');
+                sp.addClass('checked');
+                $('.col-np').show();
             }
         }
     });

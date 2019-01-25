@@ -194,3 +194,28 @@ a {
 .filters ul {
     padding-left: 0;
 }
+
+.temp-table, th, td {
+    border: 2px solid grey;
+    border-collapse: collapse;
+    background-color: white;
+}
+.temp-table {
+    opacity: 0.7;
+}
+.temp-table th {
+    padding: 15px;
+    color: black;
+    background-color: lightgray;
+}
+.temp-table th:hover {
+    color: deepskyblue;
+}
+.temp-table td {
+    padding: 15px;
+    color: black;
+}
+
+.temp-table td:hover {
+    color: deepskyblue;
+}

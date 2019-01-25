@@ -10,6 +10,7 @@ include('header.php');
 //check if user is logged on
 if ($loggedin) {
 	include('sidebar.php');
+	include('countries-table.php');
 	?>
     <script src="<?php echo get_url('/js/countries.js'); ?>"></script>
 	<div class="head-text">
@@ -24,8 +25,7 @@ if ($loggedin) {
 							<h2>France</h2>
 						</div>
 						<div class="card-body">
-							<?php //hier komt een tabel met 5 koudste plekken in Frankrijk ?>
-							Hier komt een tabel
+							<?php temp_table('france') ?>
 						</div>
 					</div>
 				</div>
@@ -35,8 +35,7 @@ if ($loggedin) {
 							<h2>Spain</h2>
 						</div>
 						<div class="card-body">
-							<?php //hier komt een tabel met 5 koudste plekken in Frankrijk ?>
-							Hier komt een tabel
+							<?php temp_table('esp') ?>
 						</div>
 					</div>
 				</div>
@@ -46,8 +45,7 @@ if ($loggedin) {
 							<h2>Mexico</h2>
 						</div>
 						<div class="card-body">
-							<?php //hier komt een tabel met 5 koudste plekken in Frankrijk ?>
-							Hier komt een tabel
+							<?php temp_table('mex') ?>
 						</div>
 					</div>
 				</div>
@@ -57,19 +55,27 @@ if ($loggedin) {
 							<h2>United States</h2>
 						</div>
 						<div class="card-body">
-							<?php //hier komt een tabel met 5 koudste plekken in Frankrijk ?>
-							Hier komt een tabel
+							<?php temp_table('us') ?>
 						</div>
 					</div>
 				</div>
-				<div class="col-1-3 col-poles">
+				<div class="col-1-3 col-np">
 					<div class="card">
 						<div class="card-head">
-							<h2>Pole circles</h2>
+							<h2>North Pole</h2>
 						</div>
 						<div class="card-body">
-							<?php //hier komt een tabel met 5 koudste plekken in Frankrijk ?>
-							Hier komt een tabel
+							<?php temp_table('np', 3) ?>
+						</div>
+					</div>
+				</div>
+				<div class="col-1-3 col-sp">
+					<div class="card">
+						<div class="card-head">
+							<h2>South Pole</h2>
+						</div>
+						<div class="card-body">
+							<?php temp_table('sp', 3) ?>
 						</div>
 					</div>
 				</div>
@@ -87,7 +93,8 @@ if ($loggedin) {
 							<li><input type="checkbox" name="Esp" checked="checked" class="chck-esp checked"/><label>Spain</label></li>
 							<li><input type="checkbox" name="Mex" checked="checked" class="chck-mex checked"/><label>Mexico</label></li>
 							<li><input type="checkbox" name="us" checked="checked" class="chck-us checked"/><label>United States</label></li>
-							<li><input type="checkbox" name="Poles" checked="checked" class="chck-poles checked"/><label>Pole circles</label></li>
+							<li><input type="checkbox" name="np" checked="checked" class="chck-np checked"/><label>North Pole</label></li>
+							<li><input type="checkbox" name="sp" checked="checked" class="chck-sp checked"/><label>South Pole</label></li>
 						</ul>
 					</div>
 				</div>
