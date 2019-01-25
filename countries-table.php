@@ -3,12 +3,12 @@
     <tr1>
         <th>Nr.</th>
         <th>Place</th>
-        <th>Feeling Temperature</th>
+        <th>Temp</th>
     </tr1>
     <?php for ($i = 0; $i < $rows; $i++) { ?>
     <tr>
-        <td></td>
-        <td></td>
+        <td><?php echo $i+1; ?></td>
+        <td>bladiebladiebladiebla</td>
         <td></td>
     </tr>
     <?php } ?>
