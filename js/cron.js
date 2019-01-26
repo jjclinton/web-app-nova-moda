@@ -13,25 +13,6 @@ $(document).ready(function () {
                 }
             })
         console.log(json_php_data);
-/**
-        function updatetable(tableId, fields, data, amount) {
-            var rows = '';
-            var start = 0;
-            $.each(data, function (index, item) {
-                var row = '<tr>';
-                $.each(fields, function (index, field) {
-                    row += '<td>' + item[field + ''] + '</td>';
-                });
-                rows += row + '<tr>';
-                start++;
-                if(start < amount){
-                    $('#' + tableId + ' tbody').html(rows);
-                    return false;
-                }
-            });
-        }
- */
-
 
         function updatetable_simplified(tableId, fields, data, amount) {
             var rows = '';
