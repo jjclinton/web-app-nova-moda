@@ -9,7 +9,7 @@
     </thead>
     <?php for ($i = 0; $i < $rows; $i++) { ?>
         <tbody>
-    <tr>
+    <tr id = "tr <?php echo $i?>">
         <td></td>
         <td></td>
         <td></td>
@@ -18,5 +18,5 @@
     <?php } ?>
 
 </table>
-<?php } ?>
+<?php echo "temp-table $country";} ?>
 
