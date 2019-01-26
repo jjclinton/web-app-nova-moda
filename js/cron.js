@@ -6,13 +6,12 @@ $(document).ready(function () {
                 url : 'http://localhost:63342/novamoda/encoder.php',
                 type : 'POST',
                 dataType : 'json',
+                async: false,
                 success : function (data) {
                     json_php_data = data;
                     console.log("parsed");
-                    console.log(json_php_data);
                 }
             })
-
 
         function updatetable(tableId, fields, data, amount) {
             var rows = '';
