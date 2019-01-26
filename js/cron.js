@@ -2,10 +2,16 @@ $(document).ready(function () {
     function updater() {
         var tables = ["temp-tablefrance", "temp-tableesp", "temp-tablemex", "temp-tableus", "temp-tablenp", "temp-tablesp"];
         var json_php_data = [];
-        $.get("http://localhost:63342/novamoda/encoder.php", function (data) {
-            json_php_data = data;
-        })
-
+            $.ajax({
+                url : 'http://localhost:63342/novamoda/encoder.php',
+                type : 'POST',
+                dataType : 'json',
+                success : function (data) {
+                    json_php_data = data;
+                    console.log("parsed");
+                    console.log(json_php_data);
+                }
+            })
 
 
         function updatetable(tableId, fields, data, amount) {
