@@ -70,5 +70,6 @@ $(document).ready(function () {
         console.log(json_php_data[1]);
     }
     //sets interval for updating tables
+    updater();
     setInterval(updater, 10000);
 })
