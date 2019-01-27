@@ -1,6 +1,8 @@
 $(document).ready(function () {
     function updater() {
+        //table names for calling
         var tables = ["temp-table france", "temp-table esp", "temp-table mex", "temp-table us", "temp-table np", "temp-table sp"];
+        //gets the data from a php file and parses it into a json varibale
         var json_php_data = [];
             $.ajax({
                 url : 'http://localhost:63342/novamoda/encoder.php',
@@ -12,8 +14,10 @@ $(document).ready(function () {
                     console.log("parsed");
                 }
             })
+        // for debugging
         console.log(json_php_data);
 
+        //puts the data into the table
         function updatetable_simplified(tableId, fields, data, amount) {
             var rows = '';
             var json_data = data;
@@ -23,18 +27,28 @@ $(document).ready(function () {
                 console.log(random);
                 var selected_json = json_data[random];
                 console.log(selected_json);
+                var feel = (10 * Math.sqrt(parseFloat(selected_json["WDSP"])) - parseFloat(selected_json["WDSP"]) + 10.5) * (33 - parseFloat(selected_json["TEMP"]));
+                feel = feel.toFixed(2);
                 $.each(fields, function (index, field) {
                     var selected_value = selected_json[field];
                     var x = document.getElementById(tableId).rows[i].cells;
-                    x[start].innerHTML = selected_value;
+                    if(start < 2){
+                        x[start].innerHTML = selected_value;
+
+                    }
+
+                    else if(start == 2){
+                        x[start].innerHTML = feel;
+                    }
                     start++;
+
                 })
 
                 }
 
             }
 
-
+        //activates the functions for the table update
         for(var i = 0; i < 6; i++){
             var random = Math.random(0,10);
             var select = tables[i];
@@ -51,6 +65,6 @@ $(document).ready(function () {
 
         console.log(json_php_data[1]);
     }
-
+    //sets interval for updating tables
     setInterval(updater, 10000);
 })
