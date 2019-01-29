@@ -6,21 +6,25 @@
 include('config.php');
 
 include('header.php');
-
 //check if user is logged on
 if ($loggedin) {
 	include('sidebar.php');
 	include('countries-table.php');
 	?>
     <script src="<?php echo get_url('/js/countries.js'); ?>"></script>
+    <script src="<?php echo get_url('/js/export.js'); ?>"></script>
+    <script src="<?php echo get_url('/js/cron.js'); ?>"> </script>
 	<div class="head-text">
-		<h1>Countries with 5 coldest places</h1>
+		<h1>Coldest places per country</h1>
 	</div>
+    <div class="export">
+        <button class="btn export">Export data</button>
+    </div>
 	<div class="row">
 		<div class="col-3-4 left">
 			<div class="row">
 				<div class="col-1-3 col-france">
-					<div class="card">
+					<div class="card country">
 						<div class="card-head">
 							<h2>France</h2>
 						</div>
@@ -30,7 +34,7 @@ if ($loggedin) {
 					</div>
 				</div>
 				<div class="col-1-3 col-esp">
-					<div class="card">
+					<div class="card country">
 						<div class="card-head">
 							<h2>Spain</h2>
 						</div>
@@ -40,7 +44,7 @@ if ($loggedin) {
 					</div>
 				</div>
 				<div class="col-1-3 col-mex">
-					<div class="card">
+					<div class="card country">
 						<div class="card-head">
 							<h2>Mexico</h2>
 						</div>
@@ -50,7 +54,7 @@ if ($loggedin) {
 					</div>
 				</div>
 				<div class="col-1-3 col-us">
-					<div class="card">
+					<div class="card country">
 						<div class="card-head">
 							<h2>United States</h2>
 						</div>
@@ -60,7 +64,7 @@ if ($loggedin) {
 					</div>
 				</div>
 				<div class="col-1-3 col-np">
-					<div class="card">
+					<div class="card country">
 						<div class="card-head">
 							<h2>North Pole</h2>
 						</div>
@@ -70,7 +74,7 @@ if ($loggedin) {
 					</div>
 				</div>
 				<div class="col-1-3 col-sp">
-					<div class="card">
+					<div class="card country">
 						<div class="card-head">
 							<h2>South Pole</h2>
 						</div>

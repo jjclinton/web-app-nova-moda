@@ -15,7 +15,7 @@ defined('INCLUDED') or die();
 			<ul class="sidebar-menu">
 				<li class="hvr-sweep-to-right"><a href="<?php echo get_url('/places.php'); ?>">Countries</a></li>
 				<li class="hvr-sweep-to-right"><a href="#">Poles</a></li>
-				<li class="hvr-sweep-to-right"><a href="#">Air presure</a></li>
+				<li class="hvr-sweep-to-right"><a href="#">Air pressure</a></li>
 			</ul>
 			<button class="logout-button fade-effect-btn"><a href="<?php echo get_url('/?logout=1'); ?>">Logout</a></button>
 		</nav>
