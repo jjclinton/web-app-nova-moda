@@ -5,7 +5,7 @@ $(document).ready(function () {
         //gets the data from a php file and parses it into a json variable
         var json_php_data = [];
             $.ajax({
-                url : 'http://localhost/novamoda/encoder.php',
+                url : 'http://localhost:63342/novamoda/encoder.php',
                 type : 'POST',
                 dataType : 'json',
                 async: false,
@@ -14,7 +14,7 @@ $(document).ready(function () {
                     console.log("parsed");
                 }
             })
-        // for debugging
+
         console.log(json_php_data);
 
         //puts the data into the table
@@ -58,11 +58,11 @@ $(document).ready(function () {
             var select = tables[i];
             console.log(select);
             if(i < 4){
-                updatetable_simplified(select,["STN", "STN", "DEWP"], json_php_data, 11);
+                updatetable_simplified(select,["STN", '"LOCATION"', "DEWP"], json_php_data, 11);
             }
 
             else if(i => 4){
-                updatetable_simplified(select, ["STN", "STN", "DEWP"], json_php_data,4);
+                updatetable_simplified(select, ["STN", '"LOCATION"', "DEWP"], json_php_data,4);
             }
         }
 
