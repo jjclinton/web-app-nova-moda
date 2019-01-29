@@ -11,8 +11,11 @@ $(document).ready(function () {
                 async: false,
                 success : function (data) {
                     json_php_data = data;
+                    console.log("parsed");
                 }
-            });
+            })
+        // for debugging
+        console.log(json_php_data);
 
         //puts the data into the table
         function updatetable_simplified(tableId, fields, data, amount) {
@@ -23,7 +26,9 @@ $(document).ready(function () {
                 //random number for generating random values for the tables
                 var random = Math.floor(Math.random() * 10);
                 //check breakpoints
+                console.log(random);
                 var selected_json = json_data[random];
+                console.log(selected_json);
                 //calculates the windchill
                 var feel = (10 * Math.sqrt(parseFloat(selected_json["WDSP"])) - parseFloat(selected_json["WDSP"]) + 10.5) * (33 - parseFloat(selected_json["TEMP"]));
                 feel = feel.toFixed(2);
@@ -51,6 +56,7 @@ $(document).ready(function () {
         for(var i = 0; i < 6; i++){
             var random = Math.random(0,10);
             var select = tables[i];
+            console.log(select);
             if(i < 4){
                 updatetable_simplified(select,["STN", "STN", "DEWP"], json_php_data, 11);
             }
@@ -61,6 +67,7 @@ $(document).ready(function () {
         }
 
 
+        console.log(json_php_data[1]);
     }
     //sets interval for updating tables
     updater();
