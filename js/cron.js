@@ -2,6 +2,7 @@ $(document).ready(function () {
     function updater() {
         //table names for calling
         var tables = ["temp-table france", "temp-table esp", "temp-table mex", "temp-table us", "temp-table np", "temp-table sp"];
+
         //gets the data from a php file and parses it into a json variable
         var json_php_data = [];
             $.ajax({
@@ -14,6 +15,7 @@ $(document).ready(function () {
                     console.log("parsed");
                 }
             })
+
         // for debugging
         console.log(json_php_data);
 
@@ -23,20 +25,24 @@ $(document).ready(function () {
             var json_data = data;
             for(var i = 1; i < amount; i++){
                 var start = 0;
+
                 //random number for generating random values for the tables
                 var random = Math.floor(Math.random() * 10);
+
                 //check breakpoints
                 console.log(random);
                 var selected_json = json_data[random];
                 console.log(selected_json);
+
                 //calculates the windchill
                 var feel = (10 * Math.sqrt(parseFloat(selected_json["WDSP"])) - parseFloat(selected_json["WDSP"]) + 10.5) * (33 - parseFloat(selected_json["TEMP"]));
                 feel = feel.toFixed(2);
+
                 //loops through the selected keys
                 $.each(fields, function (index, field) {
                     var selected_value = selected_json[field];
                     var x = document.getElementById(tableId).rows[i].cells;
-                    if(start < 2){
+                    if(start == 1){
                         x[start].innerHTML = selected_value;
 
                     }
@@ -58,11 +64,11 @@ $(document).ready(function () {
             var select = tables[i];
             console.log(select);
             if(i < 4){
-                updatetable_simplified(select,["STN", "STN", "DEWP"], json_php_data, 11);
+                updatetable_simplified(select,["LOCATION", "LOCATION", "WINDCHILL"], json_php_data, 11);
             }
 
             else if(i => 4){
-                updatetable_simplified(select, ["STN", "STN", "DEWP"], json_php_data,4);
+                updatetable_simplified(select, ["LOCATION", "LOCATION", "WINDCHILL"], json_php_data,4);
             }
         }
 
