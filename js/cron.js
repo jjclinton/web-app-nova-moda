@@ -2,6 +2,7 @@ $(document).ready(function () {
     function updater() {
         //table names for calling
         var tables = ["temp-table france", "temp-table esp", "temp-table mex", "temp-table us", "temp-table np", "temp-table sp"];
+        var countries = ["FRANCE", "SPAIN", "MEXICO", "UNITED STATES", "NORTH POLE", "SOUTH POLE"];
         //gets the data from a php file and parses it into a json variable
         var json_php_data = [];
             $.ajax({
@@ -18,33 +19,31 @@ $(document).ready(function () {
         console.log(json_php_data);
 
         //puts the data into the table
-        function updatetable_simplified(tableId, fields, data, amount) {
+        function updatetable_simplified(tableId, fields, data, amount, country) {
             var rows = '';
             var json_data = data;
             for(var i = 1; i < amount; i++){
+                var check = 0;
+                var country_check = 0;
                 var start = 0;
-                //random number for generating random values for the tables
-                var random = Math.floor(Math.random() * 10);
-                //check breakpoints
-                console.log(random);
-                var selected_json = json_data[random];
+                var selected_json = data[i];
                 console.log(selected_json);
-                //calculates the windchill
-                var feel = (10 * Math.sqrt(parseFloat(selected_json["WDSP"])) - parseFloat(selected_json["WDSP"]) + 10.5) * (33 - parseFloat(selected_json["TEMP"]));
-                feel = feel.toFixed(2);
                 //loops through the selected keys
                 $.each(fields, function (index, field) {
                     var selected_value = selected_json[field];
-                    var x = document.getElementById(tableId).rows[i].cells;
-                    if(start < 2){
-                        x[start].innerHTML = selected_value;
-
+                    if(country == selected_value && check == 0){
+                        check++;
                     }
+                    if(check == 1) {
+                        var x = document.getElementById(tableId).rows[i].cells;
+                        if (start == 1) {
+                            x[start].innerHTML = selected_value;
 
-                    else if(start == 2){
-                        x[start].innerHTML = feel;
+                        } else if (start == 2) {
+                            x[start].innerHTML = selected_value;
+                        }
+                        start++;
                     }
-                    start++;
 
                 })
 
@@ -54,22 +53,19 @@ $(document).ready(function () {
 
         //activates the functions for the table update
         for(var i = 0; i < 6; i++){
-            var random = Math.random(0,10);
             var select = tables[i];
+            var select_countries = countries[i];
             console.log(select);
             if(i < 4){
-                updatetable_simplified(select,["STN", '"LOCATION"', "DEWP"], json_php_data, 11);
+                updatetable_simplified(select,["COUNTRY", "LOCATION", "WINDCHILL"], json_php_data, json_php_data.length, select_countries);
             }
 
             else if(i => 4){
-                updatetable_simplified(select, ["STN", '"LOCATION"', "DEWP"], json_php_data,4);
+                updatetable_simplified(select, ["COUNTRY", "LOCATION", "WINDCHILL"], json_php_data,json_php_data.length, select_countries);
             }
         }
-
-
-        console.log(json_php_data[1]);
     }
     //sets interval for updating tables
     updater();
-    setInterval(updater, 10000);
+    setInterval(updater, 60000);
 })
