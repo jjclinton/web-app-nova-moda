@@ -5,7 +5,7 @@ $(document).ready(function () {
         //gets the data from a php file and parses it into a json variable
         var json_php_data = [];
             $.ajax({
-                url : 'http://localhost:63342/novamoda/encoder.php',
+                url : 'http://localhost/novamoda/encoder.php',
                 type : 'POST',
                 dataType : 'json',
                 async: false,
@@ -16,7 +16,7 @@ $(document).ready(function () {
             })
 
         console.log(json_php_data);
-
+w
         //puts the data into the table
         function updatetable_simplified(tableId, fields, data, amount) {
             var rows = '';

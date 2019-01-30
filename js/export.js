@@ -26,5 +26,23 @@ $(document).ready(function() {
 
         //xmlWindow.document.write(new XMLSerializer().serializeToString(countries));
         console.log(countries);
+        function download(filename, text) {
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            element.setAttribute('download', filename);
+
+
+            document.body.appendChild(element);
+
+            element.click();
+
+            document.body.removeChild(element);
+        }
+
+        // Start file download.
+        parser = new DOMParser();
+        console.log($(countries).prop('outerHTML'));
+        xmlDoc = $(countries).prop('outerHTML');
+        download('novamoda ' + new Date().toDateString() + '.xml', '<?xml version="1.0" encoding="UTF-8"?>' + xmlDoc);
     })
 });
