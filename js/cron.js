@@ -5,19 +5,18 @@ $(document).ready(function () {
         var countries = ["FRANCE", "SPAIN", "MEXICO", "UNITED STATES", "NORTH POLE", "SOUTH POLE"];
         //gets the data from a php file and parses it into a json variable
         var json_php_data = [];
-        $.ajax({
-            url : 'https://novamodaweather.site/encoder.php',
-            type : 'POST',
-            dataType : 'json',
-            async: false,
-            success : function (data) {
-                json_php_data = data;
-                console.log("parsed");
-            }
-        })
+            $.ajax({
+                url : 'http://localhost/novamoda/encoder.php',
+                type : 'POST',
+                dataType : 'json',
+                async: false,
+                success : function (data) {
+                    json_php_data = data;
+                    console.log("parsed");
+                }
+            })
 
         console.log(json_php_data);
-
         //puts the data into the table
         function updatetable_simplified(tableId, fields, data, amount, country) {
             var json_data = data;
