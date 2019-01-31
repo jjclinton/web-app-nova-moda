@@ -5,51 +5,79 @@ $(document).ready(function () {
         var countries = ["FRANCE", "SPAIN", "MEXICO", "UNITED STATES", "NORTH POLE", "SOUTH POLE"];
         //gets the data from a php file and parses it into a json variable
         var json_php_data = [];
-            $.ajax({
-                url : 'http://localhost:63342/novamoda/encoder.php',
-                type : 'POST',
-                dataType : 'json',
-                async: false,
-                success : function (data) {
-                    json_php_data = data;
-                    console.log("parsed");
-                }
-            })
+        $.ajax({
+            url : 'https://novamodaweather.site/encoder.php',
+            type : 'POST',
+            dataType : 'json',
+            async: false,
+            success : function (data) {
+                json_php_data = data;
+                console.log("parsed");
+            }
+        })
 
         console.log(json_php_data);
 
         //puts the data into the table
         function updatetable_simplified(tableId, fields, data, amount, country) {
-            var rows = '';
             var json_data = data;
-            for(var i = 1; i < amount; i++){
+            var start_rows = 1;
+            for(var i = 0; i < amount; i++){
                 var check = 0;
-                var country_check = 0;
                 var start = 0;
                 var selected_json = data[i];
                 console.log(selected_json);
                 //loops through the selected keys
-                $.each(fields, function (index, field) {
-                    var selected_value = selected_json[field];
-                    if(country == selected_value && check == 0){
-                        check++;
-                    }
-                    if(check == 1) {
-                        var x = document.getElementById(tableId).rows[i].cells;
-                        if (start == 1) {
-                            x[start].innerHTML = selected_value;
+                if(country != "SOUTH POLE" && country != "NORTH POLE"){
+                    $.each(fields, function (index, field) {
+                        var selected_value = selected_json[field];
+                        if(check == 0 && selected_value == country){
+                            check++;
+                        }
+                        if(check == 1) {
+                            var x = document.getElementById(tableId).rows[start_rows].cells;
+                            if (start == 1) {
+                                x[start].innerHTML = selected_value;
 
-                        } else if (start == 2) {
-                            x[start].innerHTML = selected_value;
+                            } else if (start == 2) {
+                                x[start].innerHTML = selected_value;
+                                start_rows++;
+                            }
+
                         }
                         start++;
-                    }
 
-                })
-
+                    })
                 }
 
+                if(country == "SOUTH POLE" || country == "NORTH POLE"){
+                    if(start_rows < 4){
+                        $.each(fields, function (index, field) {
+                            var selected_value = selected_json[field];
+                            if(check == 0 && selected_value == country){
+                                check++;
+                            }
+                            if(check == 1) {
+                                var x = document.getElementById(tableId).rows[start_rows].cells;
+                                if (start == 1) {
+                                    x[start].innerHTML = selected_value;
+
+                                } else if (start == 2) {
+                                    x[start].innerHTML = selected_value;
+                                    start_rows++;
+                                }
+
+                            }
+                            start++;
+
+                        })
+                    }
+                }
+
+
             }
+
+        }
 
         //activates the functions for the table update
         for(var i = 0; i < 6; i++){
