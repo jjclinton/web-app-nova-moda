@@ -1,9 +1,11 @@
+//Jonathan and Nick
+
 $(document).ready(function () {
     var date;
-	
+// gets data of that specific date after submittion of the date
     $('#submit').on('click', function(){
 		event.preventDefault();
-        date = getDate();
+        date = getDate(); //sets date equal to the getDate date in yyyy-mm-dd form
 		console.log(date);
         jQuery.ajax({
             type: "POST",
@@ -17,7 +19,7 @@ $(document).ready(function () {
             }
         });
 		console.log(date);
-		updater(date);
+		updater(date);		
 		return false;
     });
 	
@@ -59,7 +61,7 @@ $(document).ready(function () {
 
                     })
                 }
-
+		
                 if(country == "SOUTH POLE" || country == "NORTH POLE"){
                     if(start_rows < 4){
                         $.each(fields, function (index, field) {
@@ -103,7 +105,7 @@ $(document).ready(function () {
             }
         }
     }
-
+//gets the date from the submit and puts it into yyyy-mm-dd 
     function getDate(){
         var day, month, year;
         var fulldate;
