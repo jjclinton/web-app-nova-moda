@@ -160,6 +160,43 @@ if($loggedin == true){
 ````
 This snippet of the code ensures that the data that was given by the ajax post correctly comes back as a json array.
 
+### countries-table.php
+The countries-table.php file has a function that generates a table with a country id so that it can be called by a javascript 
+code by the elementid. The code is very straightforward you give you amount of rows and specify the name of the country that
+you want to use in your table.
+
+```
+<?php function temp_table($country, $rows = 10) { ?>
+<table class="temp-table <?php echo $country ?>" id = "temp-table <?php echo $country ?>">
+    <thead>
+    <tr class="tr-head">
+        <th>Nr.</th>
+        <?php if ($country === 'all') {?>
+        <th>Country</th>
+        <?php } ?>
+        <th>Place</th>
+        <th>Windchill</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php for ($i = 0; $i < $rows; $i++) { ?>
+    <tr id = "tr <?php echo $i?>">
+        <td> <?php echo $i + 1?></td>
+        <td></td>
+        <td></td>
+        <?php if ($country === 'all') {?>
+        <td></td>
+        <?php } ?>
+    </tr>
+    <?php } ?>
+
+        </tbody>
+
+</table>
+<?php } ?>
+```
+All the country table have a number to indicate the ranking, Place and Windchill.
+
 ## Javascript
 ### cron.js
 This javascript file is the backbone of countries_date.js. Theres an update function that
