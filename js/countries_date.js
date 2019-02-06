@@ -113,11 +113,12 @@ $(document).ready(function () {
         day = date.getDate();
         month = date.getMonth() + 1;
         year = date.getFullYear();
+	    // if month is under 10 it puts a 0 in front for the format mm
         if(month < 10){
             month = "0" + month.toString();
             console.log(month);
         }
-
+// if day is under 10 it puts a 0 in front for the format dd
         if(day < 10){
             day = "0" + day.toString();
         }
