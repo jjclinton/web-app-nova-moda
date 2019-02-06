@@ -71,11 +71,11 @@ $(document).ready(function () {
             if (sp.hasClass('checked')) {
                 sp.removeClass('checked');
                 sp.addClass('unchecked');
-                $('.col-np').hide();
+                $('.col-sp').hide();
             } else if (sp.hasClass('unchecked')) {
                 sp.removeClass('unchecked');
                 sp.addClass('checked');
-                $('.col-np').show();
+                $('.col-sp').show();
             }
         }
     });

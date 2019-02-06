@@ -1,4 +1,5 @@
 <?php
+
 include('socketConnector.php');
 
 $json_encoded = json_encode(update());

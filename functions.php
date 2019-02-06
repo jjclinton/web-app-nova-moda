@@ -8,5 +8,5 @@
 
 //specify site url
 function get_url($path = '/') {
-	return 'http://localhost/novamoda' . $path;
+	return 'https://novamodaweather.site' . $path;
 }

@@ -7,26 +7,22 @@ include('config.php');
 
 include('header.php');
 //check if user is logged on
-if($_SERVER["HTTPS"] != "on")
-{
-    header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
-    exit();
-}
-
 if ($loggedin) {
-	include('sidebar.php');
-	include('countries-table.php');
-	?>
+    include('sidebar.php');
+    include('countries-table.php');
+
+?>
+	<script src="<?php echo get_url('/js/date.js'); ?>"></script>
     <script src="<?php echo get_url('/js/countries.js'); ?>"></script>
     <script src="<?php echo get_url('/js/export.js'); ?>"></script>
-    <script src="<?php echo get_url('/js/cron.js'); ?>"> </script>
-	<div class="head-text">
-		<h1>Coldest places per country</h1>
-	</div>
-    <div class="export">
+    <script src="<?php echo get_url('/js/countries_date.js'); ?>"></script>
+<div class="head-text">
+    <h1>history data</h1>
+</div>
+<div class="export">
         <button class="btn export">Export data</button>
     </div>
-	<div class="row">
+<div class="row">
 		<div class="col-3-4 left">
 			<div class="row">
 				<div class="col-1-2 col-france">
@@ -111,10 +107,29 @@ if ($loggedin) {
 			</div>
 		</div>
 	</div>
-<?php
+    <br></<br>
+    <div class="col-1-5 right">
+        <div class="filters">
+            <div class="card">
+                <div class="card-head">
+                    <h2>Date</h2>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li><form>
+                                <input type="date" id="date-input" name="trip-start" />
+                                <button id="submit">submit</button>
+                            </form></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <?php
 
 } else {
-	include('login.php');
+    include('login.php');
 }
 
 include('footer.php');
