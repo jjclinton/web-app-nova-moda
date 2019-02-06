@@ -7,12 +7,13 @@ include('config.php');
 
 include('header.php');
 //check if user is logged on
+/**
 if($_SERVER["HTTPS"] != "on")
 {
     header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
     exit();
 }
-
+*/
 if ($loggedin) {
 	include('sidebar.php');
 	include('countries-table.php');

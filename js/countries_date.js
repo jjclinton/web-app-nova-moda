@@ -124,18 +124,5 @@ $(document).ready(function () {
         fulldate = [year, month, day].join('-');
         return fulldate;
     }
-
-    function call(date) {
-        jQuery.ajax({
-            type: "POST",
-            url: 'history.php',
-            dataType: 'json',
-            async: false,
-            data: {functionname: 'return', arguments: date},
-            success: function (data){
-				console.log(data);
-                date = data;
-            }
-        });
-    }
+    
 });
