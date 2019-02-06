@@ -1,6 +1,7 @@
 <?php
 /**
  * Screen for the countries
+ * Jonathan and Nick
  */
 
 include('config.php');
