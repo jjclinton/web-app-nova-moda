@@ -25,7 +25,7 @@ the user stays logged in during the entire session, until the user closes the wi
 ### socketConnector.php
 This file ensures that a connection has been made with a local running java program that is used on the VM itself.
 The java program works like a database engine. You just have to give it arguments and it will send the values back to you
-in a way that easier for the people that are working the front end
+in a way that easier for the people that are working on the front end.
 
 ```
 function connectSocket(){
