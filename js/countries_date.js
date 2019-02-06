@@ -124,5 +124,5 @@ $(document).ready(function () {
         fulldate = [year, month, day].join('-');
         return fulldate;
     }
-    
+
 });

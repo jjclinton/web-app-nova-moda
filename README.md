@@ -21,7 +21,146 @@ be. Username is open for everyone
 At the top of the configuration file the session is started so if the user logs in
 the user stays logged in during the entire session, until the user closes the window.
 
-##Javascript
+## PHP
+### socketConnector.php
+This file ensures that a connection has been made with a local running java program that is used on the VM itself.
+The java program works like a database engine. You just have to give it arguments and it will send the values back to you
+in a way that easier for the people that are working the front end
+
+```
+function connectSocket(){
+  $address = "localhost";
+  $port = 54872;
+  
+  //Attempt to create a socket resource and echo an error code if the attempt fails
+  if (($socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP)) === false) {
+    echo "socket creation failed: " .socket_strerror(socket_last_error())."\n";
+  }
+  
+  //Attempt to establish socket connection and echo an error code if the attempt fails
+  if (($connection = socket_connect($socket, $address, $port)) === false){
+    echo "Socket connection failed: ".socket_strerror(socket_last_error())."\n";
+  }
+
+  return $socket;
+}
+```
+
+This code snippet ensures that a good connection has been made between the java program and the php file.
+
+```
+function parseData($result){
+  // Split into rows
+  $entries = explode(";", $result);
+  $aso = [];
+
+  // Extract header
+  $header = explode(",", array_shift($entries));
+
+  // Create associative array 
+  foreach($entries as $entry) {
+    $arr = explode(",", $entry);
+    array_push($aso, array_combine($header, explode(",", $entry)));
+  }
+
+  return $aso;
+}
+```
+
+This part of the code makes is so the data that has been recieved from the database engine is parsed
+as an array of an associative array. 
+
+```
+function update(){
+  //Establish connection with storage application
+  $socket = connectSocket();
+
+  //Request update data
+  $input = "update\r\n";
+  socket_write($socket, $input, strlen($input));
+  $result = socket_read($socket, 4096, PHP_NORMAL_READ);
+
+  //Close socket
+  socket_close($socket);
+
+  //Parse data into associative array
+  $parsed = parseData($result);
+
+  //Return parsed data to caller
+  return $parsed;
+}
+
+function history($date){
+  //Establish connection with storage application
+  $socket = connectSocket();
+
+  //Request update data
+  $input = "history;".$date."\r\n";
+  socket_write($socket, $input, strlen($input));
+  $result = socket_read($socket, 4096, PHP_NORMAL_READ);
+
+  //Close socket
+  socket_close($socket);
+
+  //Parse data into associative array
+  $parsed = parseData($result);
+
+  //Return parsed data to caller
+  return $parsed;
+}
+```
+
+these two function are called from the Jquery library when it needs data from the database engine.
+You just type in your values for history function and the update function does it by itself.
+
+### encoder.php
+The encoder.php echos the data that was requested from him. The echoed data is used in a ajax function
+and is fully parsed into a table by a javascript file. The php file uses a function from the socketConnector.php file.
+
+
+```
+include('config.php');
+include('socketConnector.php');
+if($loggedin == true){
+    $json_encoded = json_encode(update());
+    $json_encoded = str_replace("\\r", "", $json_encoded);
+    $json_encoded = str_replace("\\","",$json_encoded);
+    $json_encoded = str_replace('""','"',$json_encoded);
+    print_r($json_encoded);
+}
+```
+
+you need to be loggedin to be able to use this php file otherwise it wont show anything
+This is a security feature implemented into the website itself. So that other people can't call the 
+php file from the outside and get results from it.
+
+### history.php
+This php uses a function from the socketConnector.php file and gets the data corresponding to the arguments that were given.
+The arguments that is used is date. The format of the date is as following yyyy/mm/dd
+````
+include('config.php');
+include('socketConnector.php');
+if($loggedin == true){
+    header('Content-Type: application/json');
+
+    $aResult = array();
+    if( !isset($aResult['error']) ) {
+
+        switch($_POST['functionname']) {
+            case 'return':
+                $aResult = history($_POST['arguments']);
+            default:
+                break;
+        }
+
+    }
+
+    echo json_encode($aResult);
+}
+````
+This snippet of the code ensures that the data that was given by the ajax post correctly comes back as a json array.
+
+## Javascript
 ### cron.js
 This javascript file is the backbone of countries_date.js. Theres an update function that
 is used in the same javascript file. The javascript gets the values from the java program that's 
@@ -170,6 +309,61 @@ it gets the values from the input that the user picks with the datepicker in the
 Jquery gets the values when the user presses the submit button and queries a code to a php file 
 
 ```
+$('#submit').on('click', function(){
+		event.preventDefault();
+        date = getDate();
+		console.log(date);
+        jQuery.ajax({
+            type: "POST",
+            url: 'history.php',
+            dataType: 'json',
+            async: false,
+            data: {functionname: 'return', arguments: date},
+            success: function (data){
+				console.log(data);
+                date = data;
+            }
+        });
+		console.log(date);
+		updater(date);
+		return false;
+    });
 ```
+This small code snippet ensures it gets the data from a php file. The php file is configured in such 
+a way so when you give your data in a post type. It reads the arguments in the post data that was given
+and gives the history data back in a json_encoded(); function. 
+
+###maps.js
+The maps.js sets the markers top three most windchill countries in both the south pole and in the pole 
+on the map. The maps.js uses the google maps api. The maps has been setup in the most basic way
+and the only thing that is remarkable about this code is that when you click on a marker. It moves 
+in the markers corresponding position. 
+
+```
+//makes the marker
+	  function setMarker(lat, lng, name){
+		  var myLatlng = new google.maps.LatLng(lat, lng);
+		  var marker = new google.maps.Marker({
+			position: myLatlng,
+			title:name,
+		});
+		//setups the click function for the marker
+		bounds.extend(marker.getPosition());
+		google.maps.event.addListener(marker, 'click', (function (marker) {
+        return function () {
+            infowindow.setContent(name);
+            infowindow.open(map, marker);
+			}
+		})(marker));
+	
+		map.fitBounds(bounds);
+		return marker;
+	}
+```
+
+This is the code that makes the markers and setups a event listener so that when you click it you
+move in that direction altought the direction is very very small. It needs to be in the outer 
+edge to be able to see the difference in coordination. 
+
 
 
