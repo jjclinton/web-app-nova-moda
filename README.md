@@ -12,7 +12,9 @@ password: k0R*l%mK4$95
 This documentation is for the web application for the weather stations
 with info relevant to Nova Moda's requirements.
 
-## Configuration
+## PHP
+
+## Config.php
 In the configuration file the login settings are configured. There is no database.
 The password hash is for safety requirements. So the password itself is nowhere
 to be fount in the PHP files. The username is not hashed because it doesn't need to
@@ -21,7 +23,54 @@ be. Username is open for everyone
 At the top of the configuration file the session is started so if the user logs in
 the user stays logged in during the entire session, until the user closes the window.
 
-## PHP
+```
+<?php
+/**
+ * Configuration file
+ **/
+require('functions.php');
+define('INCLUDED', true);
+//start session to save loggedin users
+session_start();
+
+//not loggedin by default
+$loggedin = false;
+
+//username and password hash for security
+$username = "novamoda";
+$hash = "$2y$10$8eny5silxm6o/Mgekb/I/.MP3TfiO6r4mAD/wXPcwnpvdwLT3E0.m";
+
+//no login error by default
+$login_error = "";
+
+//is the get variable logout is empty and not 1 do not reset the session array
+if (!empty($_GET['logout'])) {
+	if ($_GET['logout'] == '1') {
+		$_SESSION = [];
+	}
+}
+
+//if the post variables are not empty, check the post variables username and verify password with hash
+if (!empty($_POST['username']) && !empty($_POST['password'])) {
+	if ( $_POST['username'] == $username && password_verify($_POST['password'], $hash) ) {
+		$_SESSION['username'] = $_POST['username'];
+		$_SESSION['password'] = $_POST['password'];
+	} else {
+		$login_error = "invalid username or password";
+	}
+}
+
+//check session username and password, so the user stays loggedin
+if (!empty($_SESSION['username']) && !empty($_SESSION['password'])) {
+	if ( $_SESSION['username'] == $username && password_verify($_SESSION['password'], $hash) ) {
+		$loggedin = true;
+	}
+}
+```
+
+As you can see the session username and password is saved and the user doesn't have to login each
+time a page is refreshed.
+
 ### socketConnector.php
 This file ensures that a connection has been made with a local running java program that is used on the VM itself.
 The java program works like a database engine. You just have to give it arguments and it will send the values back to you
@@ -196,6 +245,8 @@ you want to use in your table.
 <?php } ?>
 ```
 All the country table have a number to indicate the ranking, Place and Windchill.
+
+###
 
 ## Javascript
 ### cron.js
@@ -402,5 +453,71 @@ This is the code that makes the markers and setups a event listener so that when
 move in that direction altought the direction is very very small. It needs to be in the outer 
 edge to be able to see the difference in coordination. 
 
+###export.js
+
+In this export file we created artificial HTML elements with the help of jQuery. Then we converted the HTML
+elements to XML. The data is directly extracted from the tables, so an extra API call is not needed.
+This is beneficial for the server because it takes up a little bit less recourses.
+
+```
+$('.btn.export').click(function() {
+        var countries = document.createElement("countries");
+        $('.card.country').each(function (object) {
+            var country = document.createElement("country");
+            $(country).attr('name', $('h2', this).text());
+
+            countries.append(country);
+
+            $('tr', this).not('.tr-head').each(function () {
+                var nr = document.createElement("nr");
+                var place = document.createElement("place");
+                var wnch = document.createElement("WNCH");
+
+                $(place).attr('name', $('td:nth-child(2)', this).text());
+                wnch.append($('td:nth-child(3)', this).text());
+
+                country.append(place);
+                place.append(wnch);
+                
+                
+            });
+        });
+```
 
 
+The above click method starts extracting data from the table(s) and creates the artificial HTML tags.
+The tags are appended to each other to create an XML-like structure.
+
+```
+function download(filename, text) {
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            element.setAttribute('download', filename);
+
+
+            document.body.appendChild(element);
+
+            element.click();
+
+            document.body.removeChild(element);
+        }
+
+        // Start file download.
+        parser = new DOMParser();
+        console.log($(countries).prop('outerHTML'));
+        xmlDoc = $(countries).prop('outerHTML');
+        download('novamoda ' + new Date().toDateString() + '.xml', '<?xml version="1.0" encoding="UTF-8"?>' + xmlDoc);
+```
+
+This is where the file is prepared and converted to XML. The download starts.
+
+###graph.js
+
+In this file we got code from our Belgium companios. They used a few technologies from different sources.
+We are extracting data from the weather station data file and update the graph every 60 seconds, but only
+if a location is clicked.
+
+###jQuery
+
+We used jQuery library to make our work with interacting with the API and website easier.
+This is not a framework so it should be allowed for this project.
