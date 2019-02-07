@@ -402,5 +402,42 @@ This is the code that makes the markers and setups a event listener so that when
 move in that direction altought the direction is very very small. It needs to be in the outer 
 edge to be able to see the difference in coordination. 
 
+### cron-coldest.js
+The cron-coldest.js sorts the incoming data from the the java application 
+with the key that is presented within. they data is sorted by the windchill. 
+So we get a top ten of all the coldest places in the world that comes from our weatherstation
+expect the stations located in the north pole and south pole. 
 
+```php
+function sortByKey(array, key) {
+            return array.sort(function(a, b) {
+                var x = parseFloat(a[key]); 
+                var y = parseFloat(b[key]);
+                
+                return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+            });
+        }
+
+        function update_tables(data) {
+            for (key in data) {
+                console.log(data[key]);
+				/**
+                $('table tr:nth-child('+key+1+') td:nth-child(2)').append(data[key]['COUNTRY']);
+                $('table tr:nth-child('+key+1+') td:nth-child(3)').append(data[key]['LOCATION']);
+                $('table tr:nth-child('+key+1+') td:nth-child(4)').append(data[key]['WINDCHILL']);
+				*/
+				if(key < 10){
+					var start = 1;
+					var table = document.getElementById("temp-table all").rows[parseInt(key) + 1].cells;
+					table[start].innerHTML = data[key]['COUNTRY'];start++;
+					table[start].innerHTML = data[key]['LOCATION'];start++;
+					table[start].innerHTML = data[key]['WINDCHILL'];
+				}
+            }
+        }
+    }
+```
+The most important functions are these two functions. The two functions update the table and sorts the data by the key that has been given to the function itself.
+In the file itself it uses ajax to get the data from the java application from the 
+socketConnector.php file.
 
