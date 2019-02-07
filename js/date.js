@@ -1,15 +1,13 @@
 $(document).ready(function () {
 	
 	function formatDate(date){
-		//initialization of the variables
 		var day, month, year;
         var fulldate;
 		
-		day = date.getDate(); // gets the day
-        month = date.getMonth() + 1; // gets the the month
-        year = date.getFullYear(); // gets the year
-
-		// puts a zero in front of it if under 10
+		day = date.getDate();
+        month = date.getMonth() + 1;
+        year = date.getFullYear();
+		
         if(month < 10){
             month = "0" + month.toString();
         }
@@ -19,11 +17,8 @@ $(document).ready(function () {
         }
 
         year = year.toString();
-        // joins the strings together
         fulldate = [year, month, day].join('-');
-        //debug log
 		console.log(fulldate);
-		//returns the formated date
         return fulldate;
 	}
 

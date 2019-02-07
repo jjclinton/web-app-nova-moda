@@ -12,7 +12,7 @@ if ($loggedin) {
 	include('countries-table.php');
 	?>
     <script src="<?php echo get_url('/js/countries.js'); ?>"></script>
-    <script src="<?php echo get_url('/js/export.js'); ?>"></script>
+    <script src="<?php echo get_url('/js/export-coldest.js'); ?>"></script>
     <script src="<?php echo get_url('/js/cron-coldest.js'); ?>"> </script>
 	<div class="head-text">
 		<h1>Coldest places per country</h1>

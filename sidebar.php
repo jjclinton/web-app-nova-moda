@@ -13,7 +13,7 @@ defined('INCLUDED') or die();
 		</div>
 		<nav class="sidenav">
 			<ul class="sidebar-menu">
-				<li class="hvr-sweep-to-right"><a href="<?php echo get_url('/'); ?>">Countries</a></li>
+				<li class="hvr-sweep-to-right"><a href="<?php echo get_url('/countries.php'); ?>">Countries</a></li>
 				<li class="hvr-sweep-to-right"><a href="<?php echo get_url('/coldest.php'); ?>">Coldest places</a></li>
 				<li class="hvr-sweep-to-right"><a href="<?php echo get_url('/air-pressure.php'); ?>">Air pressure</a></li>
 				<li class="hvr-sweep-to-right"><a href="<?php echo get_url('/maps.php'); ?>">Maps</a></li>

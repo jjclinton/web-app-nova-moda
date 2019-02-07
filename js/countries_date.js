@@ -1,11 +1,9 @@
-//Jonathan and Nick
-
 $(document).ready(function () {
     var date;
-// gets data of that specific date after submittion of the date
+	
     $('#submit').on('click', function(){
 		event.preventDefault();
-        date = getDate(); //sets date equal to the getDate date in yyyy-mm-dd form
+        date = getDate();
 		console.log(date);
         jQuery.ajax({
             type: "POST",
@@ -19,7 +17,7 @@ $(document).ready(function () {
             }
         });
 		console.log(date);
-		updater(date);		
+		updater(date);
 		return false;
     });
 	
@@ -61,7 +59,7 @@ $(document).ready(function () {
 
                     })
                 }
-		
+
                 if(country == "SOUTH POLE" || country == "NORTH POLE"){
                     if(start_rows < 4){
                         $.each(fields, function (index, field) {
@@ -105,7 +103,7 @@ $(document).ready(function () {
             }
         }
     }
-//gets the date from the submit and puts it into yyyy-mm-dd 
+
     function getDate(){
         var day, month, year;
         var fulldate;
@@ -113,12 +111,11 @@ $(document).ready(function () {
         day = date.getDate();
         month = date.getMonth() + 1;
         year = date.getFullYear();
-	    // if month is under 10 it puts a 0 in front for the format mm
         if(month < 10){
             month = "0" + month.toString();
             console.log(month);
         }
-// if day is under 10 it puts a 0 in front for the format dd
+
         if(day < 10){
             day = "0" + day.toString();
         }
@@ -128,4 +125,17 @@ $(document).ready(function () {
         return fulldate;
     }
 
+    function call(date) {
+        jQuery.ajax({
+            type: "POST",
+            url: 'history.php',
+            dataType: 'json',
+            async: false,
+            data: {functionname: 'return', arguments: date},
+            success: function (data){
+				console.log(data);
+                date = data;
+            }
+        });
+    }
 });
