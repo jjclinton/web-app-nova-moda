@@ -467,12 +467,66 @@ $('.btn.export').click(function() {
             $(country).attr('name', $('h2', this).text());
 
             countries.append(country);
+=======
+### cron-coldest.js
+The cron-coldest.js sorts the incoming data from the the java application 
+with the key that is presented within. they data is sorted by the windchill. 
+So we get a top ten of all the coldest places in the world that comes from our weatherstation
+expect the stations located in the north pole and south pole. 
+
+```php
+function sortByKey(array, key) {
+            return array.sort(function(a, b) {
+                var x = parseFloat(a[key]); 
+                var y = parseFloat(b[key]);
+                
+                return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+            });
+        }
+
+        function update_tables(data) {
+            for (key in data) {
+                console.log(data[key]);
+				/**
+                $('table tr:nth-child('+key+1+') td:nth-child(2)').append(data[key]['COUNTRY']);
+                $('table tr:nth-child('+key+1+') td:nth-child(3)').append(data[key]['LOCATION']);
+                $('table tr:nth-child('+key+1+') td:nth-child(4)').append(data[key]['WINDCHILL']);
+				*/
+				if(key < 10){
+					var start = 1;
+					var table = document.getElementById("temp-table all").rows[parseInt(key) + 1].cells;
+					table[start].innerHTML = data[key]['COUNTRY'];start++;
+					table[start].innerHTML = data[key]['LOCATION'];start++;
+					table[start].innerHTML = data[key]['WINDCHILL'];
+				}
+            }
+        }
+    }
+```
+The most important functions are these two functions. The two functions update the table and sorts the data by the key that has been given to the function itself.
+In the file itself it uses ajax to get the data from the java application from the 
+socketConnector.php file.
+
+### export-coldest.js
+The export-coldest.js is a script that exports the top ten of the coldest places based on all the weather 
+stations that are positioned on earth. The xml data that it exports divides in with country, location, 
+windchill. So that the user that downloaded the xml data has the full data provided.
+
+```php
+$('.btn.export').click(function() {
+        var countries = document.createElement("countries");
+        $('.card.country').each(function (object) {
+            if(window.location.href.indexOf("coldest.php") <= -1) {
+                var country = document.createElement("country");
+                $(country).attr('name', $('h2', this).text());
+                countries.append(country);
+            }
+
 
             $('tr', this).not('.tr-head').each(function () {
                 var nr = document.createElement("nr");
                 var place = document.createElement("place");
                 var wnch = document.createElement("WNCH");
-
                 $(place).attr('name', $('td:nth-child(2)', this).text());
                 wnch.append($('td:nth-child(3)', this).text());
 
@@ -521,3 +575,23 @@ if a location is clicked.
 
 We used jQuery library to make our work with interacting with the API and website easier.
 This is not a framework so it should be allowed for this project.
+=======
+                
+                $(place).attr('name', $('td:nth-child(3)', this).text());
+                wnch.append($('td:nth-child(4)', this).text());
+
+                
+                if(window.location.href.indexOf("coldest.php") > -1) {
+                    var country = document.createElement("country");
+                    countries.append(country);
+                    $(country).attr('name', $('td:nth-child(2)', this).text());
+                    country.append(place);
+                }
+                place.append(wnch);
+                country.append(place);
+            });
+        });
+```
+
+This puts the data onto the xml file so that it can be readily available to download.
+>>>>>>> 0e214f4508b97494192609640c6d41796bfb4e1f
